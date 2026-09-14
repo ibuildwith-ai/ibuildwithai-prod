@@ -22,8 +22,6 @@ Disallow: /.git/
 
 # Allow access to all content types
 Allow: /blog/
-Allow: /podcast/
-Allow: /presentations/
 Allow: /about-marcelo/
 Allow: /contact/
 Allow: /newsletter/
