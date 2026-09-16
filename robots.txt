@@ -20,6 +20,9 @@ Disallow: /admin/
 Disallow: /private/
 Disallow: /.git/
 
+# Only meaningful after a Stripe payment; also noindex and out of the sitemap
+Disallow: /thank-you/
+
 # Allow access to all content types
 Allow: /blog/
 Allow: /workshops/
