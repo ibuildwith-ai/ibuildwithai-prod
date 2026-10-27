@@ -25,7 +25,6 @@ Disallow: /thank-you/
 
 # Allow access to all content types
 Allow: /blog/
-Allow: /workshops/
 Allow: /about-marcelo/
 Allow: /contact/
 Allow: /newsletter/
