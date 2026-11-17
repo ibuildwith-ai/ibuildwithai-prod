@@ -1,0 +1,96 @@
+{
+  "_note": "Generic starter data only. The taste questions are the pack's content; every answer is null because answers are the recipient's own. beers, taste_profile and suggestions start empty — the creator's logged beers, taste answers, and generated suggestions are personal and are NOT included in this pack.",
+  "taste_questions": [
+    {
+      "key": "bitterness",
+      "question": "How do you feel about bitterness in beer?",
+      "options": [
+        "Love it — the bitterer the better",
+        "Some is fine if it's balanced",
+        "Prefer low bitterness",
+        "Still figuring it out"
+      ],
+      "answer": null
+    },
+    {
+      "key": "sweetness",
+      "question": "Sweet and malty, or dry and crisp?",
+      "options": [
+        "Sweet & malty",
+        "Dry & crisp",
+        "Right in the middle",
+        "Depends on the style"
+      ],
+      "answer": null
+    },
+    {
+      "key": "dark_beers",
+      "question": "Dark beers — stouts and porters with coffee/chocolate notes?",
+      "options": [
+        "Love them",
+        "Like them sometimes",
+        "Not really my thing",
+        "Haven't tried many"
+      ],
+      "answer": null
+    },
+    {
+      "key": "fruit",
+      "question": "Fruity flavors — citrus, tropical, berry?",
+      "options": [
+        "Love fruity beers",
+        "Citrus yes, sweet fruit no",
+        "Prefer little to no fruit",
+        "Still figuring it out"
+      ],
+      "answer": null
+    },
+    {
+      "key": "sour",
+      "question": "Sour or funky beers (sours, saisons, wild ales)?",
+      "options": [
+        "Love the tang",
+        "Okay occasionally",
+        "Not for me",
+        "Never tried one"
+      ],
+      "answer": null
+    },
+    {
+      "key": "strength",
+      "question": "What strength do you usually reach for?",
+      "options": [
+        "Light & sessionable (under 5%)",
+        "Mid-range (5–7%)",
+        "Strong (7%+)",
+        "No preference"
+      ],
+      "answer": null
+    },
+    {
+      "key": "adventure",
+      "question": "When trying something new, how adventurous are you?",
+      "options": [
+        "Surprise me — wild is good",
+        "Adjacent to what I like",
+        "Stick to proven favorites",
+        "Depends on my mood"
+      ],
+      "answer": null
+    },
+    {
+      "key": "context",
+      "question": "Where do you drink beer most?",
+      "options": [
+        "Breweries & taprooms",
+        "Restaurants with food",
+        "At home",
+        "A mix of everywhere"
+      ],
+      "answer": null
+    }
+  ],
+  "beers": [],
+  "taste_profile": null,
+  "suggestions": []
+}

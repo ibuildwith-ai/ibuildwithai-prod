@@ -1,0 +1,12 @@
+# Schedules for the Beer Tracker pack.
+# The original space has NO schedule of its own: everything in it is
+# driven by the user logging a beer, so nothing needs to run.
+# Everything below is opt-in — the installer describes it and creates it
+# only if the user says yes.
+schedules:
+  - id: fresh-suggestions-monthly
+    opt_in: true
+    cadence: "monthly, on a day and time the user chooses"
+    prompt: "Call the Beer Tracker space's generatesuggestions action, then tell the user their fresh For You picks are ready in the space, naming the top one and its one-line reason. If they have logged no beers yet, say nothing."
+    delivery: "main chat"
+    note: "Optional convenience only. The pack works fully without it."

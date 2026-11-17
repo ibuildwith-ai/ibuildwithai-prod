@@ -1,0 +1,2 @@
+name: build-beer-tracker
+description: "Installs the Beer Tracker MusePack: interviews the user with the pack's questions, builds the mobile-app-style space, seeds the taste questions, installs the beer-taste skill, and verifies the result."

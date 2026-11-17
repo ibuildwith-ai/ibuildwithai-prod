@@ -1,0 +1,10 @@
+# Standing rules for the Beer Tracker pack.
+# Generic on purpose: the creator's personal values never travel with a
+# pack. {{placeholders}} are filled from the musepack.yaml questions.
+rules:
+  - "Every looked-up beer fact (ABV, IBU, hops, malts, flavor profile) must carry a source; never invent a breakdown"
+  - "Never invent a venue address: a place is either a lookup result the user confirmed, or manual entry"
+  - "Place searches are biased to {{home_area}} unless the user names another city"
+  - "Insights and taste claims come only from the user's own logged verdicts — with few logs, call the patterns early"
+  - "Suggestions are real beers with sources, each explained by the specific logged likes/dislikes it connects to"
+  - "The space must keep its mobile-app feel: bottom tab bar, center Log button, bottom sheets, cards — never a desktop website layout"

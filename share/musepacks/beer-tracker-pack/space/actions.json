@@ -1,0 +1,884 @@
+{
+  "actions": [
+    {
+      "name": "createbeer",
+      "description": "Logs a beer the user drank, with its breakdown, verdict, and where they tried it.",
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "brewery": {
+            "type": "string",
+            "maxLength": 200,
+            "default": ""
+          },
+          "style": {
+            "type": "string",
+            "maxLength": 120,
+            "default": ""
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000,
+            "default": ""
+          },
+          "abv": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 70
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ibu": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hops": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "maxItems": 20,
+            "default": []
+          },
+          "malts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "maxItems": 20,
+            "default": []
+          },
+          "yeast": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "flavorNotes": {
+            "type": "array",
+            "maxItems": 14,
+            "default": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "note": {
+                  "type": "string"
+                },
+                "intensity": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "note",
+                "intensity"
+              ]
+            }
+          },
+          "likedNotes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "maxItems": 14,
+            "default": []
+          },
+          "dislikedNotes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "maxItems": 14,
+            "default": []
+          },
+          "bitterness": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sweetness": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bodyScore": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "carbonation": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "love",
+              "like",
+              "ok",
+              "dislike"
+            ]
+          },
+          "rating": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "wouldDrinkAgain": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "serving": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 2000,
+            "default": ""
+          },
+          "triedDate": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "lookupStatus": {
+            "type": "string",
+            "enum": [
+              "found",
+              "manual"
+            ],
+            "default": "manual"
+          },
+          "sources": {
+            "type": "array",
+            "maxItems": 8,
+            "default": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title",
+                "url"
+              ]
+            }
+          },
+          "venueType": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "brewery",
+                  "restaurant",
+                  "bar",
+                  "home",
+                  "friend",
+                  "store",
+                  "festival",
+                  "other"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "venueName": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "venueAddress": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 300
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "venueCity": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "venueLat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "venueLng": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "placeId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "venueManual": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "name",
+          "verdict",
+          "triedDate"
+        ]
+      }
+    },
+    {
+      "name": "updatebeer",
+      "description": "Updates a logged beer (verdict, rating, notes, breakdown, or venue) by id.",
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "brewery": {
+            "type": "string",
+            "maxLength": 200,
+            "default": ""
+          },
+          "style": {
+            "type": "string",
+            "maxLength": 120,
+            "default": ""
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 2000,
+            "default": ""
+          },
+          "abv": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 70
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ibu": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hops": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "maxItems": 20,
+            "default": []
+          },
+          "malts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "maxItems": 20,
+            "default": []
+          },
+          "yeast": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "flavorNotes": {
+            "type": "array",
+            "maxItems": 14,
+            "default": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "note": {
+                  "type": "string"
+                },
+                "intensity": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "note",
+                "intensity"
+              ]
+            }
+          },
+          "likedNotes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "maxItems": 14,
+            "default": []
+          },
+          "dislikedNotes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "maxItems": 14,
+            "default": []
+          },
+          "bitterness": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sweetness": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bodyScore": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "carbonation": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "love",
+              "like",
+              "ok",
+              "dislike"
+            ]
+          },
+          "rating": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "wouldDrinkAgain": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "serving": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 2000,
+            "default": ""
+          },
+          "triedDate": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "lookupStatus": {
+            "type": "string",
+            "enum": [
+              "found",
+              "manual"
+            ],
+            "default": "manual"
+          },
+          "sources": {
+            "type": "array",
+            "maxItems": 8,
+            "default": [],
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "title",
+                "url"
+              ]
+            }
+          },
+          "venueType": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "brewery",
+                  "restaurant",
+                  "bar",
+                  "home",
+                  "friend",
+                  "store",
+                  "festival",
+                  "other"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "venueName": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "venueAddress": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 300
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "venueCity": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "venueLat": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "venueLng": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "placeId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "venueManual": {
+            "type": "boolean",
+            "default": false
+          },
+          "id": {
+            "type": "integer",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": [
+          "name",
+          "verdict",
+          "triedDate",
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "deletebeer",
+      "description": "Deletes a logged beer by id.",
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "getbeer",
+      "description": "Gets one logged beer by id.",
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    {
+      "name": "listbeers",
+      "description": "Lists logged beers, newest first, with optional search text, verdict, venue type, and place filters.",
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "love",
+              "like",
+              "ok",
+              "dislike"
+            ]
+          },
+          "venueType": {
+            "type": "string",
+            "enum": [
+              "brewery",
+              "restaurant",
+              "bar",
+              "home",
+              "friend",
+              "store",
+              "festival",
+              "other"
+            ]
+          },
+          "placeKey": {
+            "type": "string",
+            "maxLength": 300
+          }
+        }
+      }
+    },
+    {
+      "name": "lookupbeer",
+      "description": "Looks up a beer by name on the web and returns its component breakdown (brewery, style, ABV, IBU, hops, malts, flavor notes, bitterness/sweetness/body scores) with source links.",
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "searchplaces",
+      "description": "Searches for real venues (brewery, restaurant, bar, shop) by name, biased to the user's home area unless a city is given, and returns candidate places with full address and coordinates for the user to confirm.",
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 160
+          },
+          "city": {
+            "type": "string",
+            "maxLength": 120
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "gethome",
+      "description": "Returns the home dashboard: totals, recent beers, top loved flavor, and whether the taste questions are answered.",
+      "request_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "getinsights",
+      "description": "Computes the taste-connection engine output: flavor, hop, malt, and style affinities plus bitterness/sweetness/body patterns by verdict, and the saved narrative summary.",
+      "request_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "generatetastesummary",
+      "description": "Uses the logged beers and taste answers to write a short taste-profile summary and concrete flavor connections, saved to the profile.",
+      "request_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "generatesuggestions",
+      "description": "Generates fresh For You beer suggestions: real beers matched to the user's taste profile, each with a reason tied to their logged likes and dislikes.",
+      "request_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "getsuggestions",
+      "description": "Returns the saved For You beer suggestions and when they were generated.",
+      "request_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "getplaces",
+      "description": "Aggregates all venues from logged beers: places visited with visit counts, beer counts, average rating, and venue-type totals.",
+      "request_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "gettastequestions",
+      "description": "Returns the taste-profile questions with the user's saved answers.",
+      "request_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "getquestionoftheday",
+      "description": "Returns the next unanswered taste question (rotating by day), or null when all are answered.",
+      "request_schema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "savetasteanswer",
+      "description": "Saves (or clears, with an empty answer) one taste-profile question answer.",
+      "request_schema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 60
+          },
+          "answer": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "required": [
+          "key",
+          "answer"
+        ]
+      }
+    }
+  ]
+}
