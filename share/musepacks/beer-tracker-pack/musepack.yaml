@@ -2,54 +2,32 @@
 # This is the entry point. A user points their Muse at this file's URL;
 # the Muse reads this file first and follows `files:` links only when a
 # step needs them (progressive disclosure).
-# Format status: v0.1 PILOT — built 2026-11-17, following the Daily Photo
-# Challenge pack format, to be tested in a second Muse and revised from
-# what that test shows.
+# Format status: v0.2 PILOT — built 2026-11-17, revised the same day from
+# two install tests (the creator's own Muse, and a clean-room install on
+# another person's Muse). V0.2 changes: (1) the space spec now carries an
+# exact surface inventory (tabs, in order) with a matching verify check
+# and a reference screenshot — two v0.1 installs improvised different tab
+# bars because v0.1 never pinned them; (2) personal-data scrub: a
+# question whose answer is personal to the user carries NO default — the
+# creator's own value must never ship in a pack, not even as a default;
+# (3) data-only manifest: the v0.1 imperative instruction block is gone —
+# the install bootstrap now lives in the universal MusePack Installer
+# skill, so this file reads as data, not as instructions from the web.
 
 # ---------------------------------------------------------------------------
-# instructions_for_muse — the standard bootstrap field for every MusePack.
-# The user's prompt says: "Get this MusePack, read its
-# instructions_for_muse field, and follow those instructions."
-# This field is written to that Muse, as direct instructions.
+# DATA-ONLY MANIFEST. This file intentionally contains NO instructions
+# for Muse. It is a declarative description of the pack: what it
+# contains, what the recipient may customize, and how an install is
+# verified. The install procedure lives in the separate, universal
+# MusePack Installer skill, which the user installs once (from
+# MusePacks.ai) and which treats this file as data. The user's prompt
+# is simply: "Install this MusePack: <this file's URL>".
 # ---------------------------------------------------------------------------
-instructions_for_muse: |
-  You are installing this MusePack for your user, who gave you this file's
-  URL and told you to follow these instructions. Do not just summarize
-  this file — install the pack.
-
-  1. Download a working copy of the whole pack to a folder on your own
-     machine (e.g. ~/workspace/musepacks/beer-tracker-pack/), resolving
-     every link in `files:` relative to this file's URL. Keep that folder
-     afterwards as the install record: pack name, version, the user's
-     answers, and what you created.
-  2. Tell your user, in one or two plain sentences, what you are about to
-     build and anything else the pack creates (here: the space, plus the
-     beer-taste companion skill). This pack installs no schedule by
-     default.
-  3. Check whether a space with this pack's slug already exists. If it
-     does, do not edit or overwrite it: follow `test_install` below.
-  4. Ask the questions in `questions:` in this file — only those. The
-     pack's creator chose what may be changed; everything not asked is
-     fixed, so build it exactly as specified and do not ask about it.
-     First offer the shortcut: exactly like the original, or customize it?
-     Exactly-like-original means take every default and ask only the
-     questions marked `required: true`.
-  5. Ask before connecting anything. This pack needs public web reading
-     (beer lookup and suggestions). It uses the Places connector for venue
-     lookup only if the user's venue_lookup answer is lookup_and_confirm;
-     if it is not connected and the user wants lookup, ask them to connect
-     it — never connect an account on your own initiative. Credentials
-     never travel with a pack.
-  6. Fetch and follow the build skill in `files.build_skill` for the full
-     build: build the space from `files.space_spec`, seed only what
-     `files.space_seed` contains, install the companion skill, and apply
-     `files.rules` with the user's answers substituted.
-  7. Run every check in `verify:` against the live space and report each
-     one as passed or failed, with what you actually saw. A space that was
-     built but not verified is not installed.
 
 name: beer-tracker
-version: 0.1.0
+version: 0.2.0
+format: musepack
+installer_skill: musepack-installer   # the universal installer skill this pack is installed with
 title: "Beer Tracker"
 description: "A mobile-app-style beer journal: log a beer and it is looked up and broken down into its components (brewery, style, ABV, IBU, hops, malts, flavor notes, balance scores, with sources), rate what you liked and didn't, record where you tried it, and the app connects the dots across your taste and suggests real beers to try next."
 author: "Marcelo Lewin"
@@ -59,8 +37,6 @@ license: share-freely
 # Files in this pack. All links are relative to this file's location.
 # ---------------------------------------------------------------------------
 files:
-  build_skill:   ./skill/SKILL.md        # the installer skill: how to build this pack
-  build_skill_header: ./skill/skill.yaml # light header for the installer skill
   space_header:  ./space/SPACE.yaml      # light header for the space
   space_spec:    ./space/SPACE.md        # full space concept, layout, and behavior
   space_actions: ./space/actions.json    # every published action + its request schema
@@ -69,7 +45,8 @@ files:
     - ./skills/beer-taste/SKILL.md       # how Muse talks about taste, logs, and suggestions
   rules:         ./rules.yaml            # standing behavior rules (generic, with {{placeholders}})
   schedules:     ./schedules.yaml        # scheduled jobs this pack can set up (all opt-in)
-  assets_note:   ./assets/README.md      # why no image files ship in the pack
+  assets_note:   ./assets/README.md      # what image files ship, and why
+  surface_reference: ./assets/tab-bar-reference.png  # the exact tab bar the built space must match (see verify)
 
 # ---------------------------------------------------------------------------
 # What the receiving Muse needs. Credentials never travel with a pack;
@@ -85,14 +62,20 @@ requires:
 
 contents:
   spaces: [beer-tracker]
-  skills: [build-beer-tracker, beer-taste]
+  skills: [beer-taste]
   schedules: []           # none installed by default; see schedules.yaml
 
 # ---------------------------------------------------------------------------
 # Questions. THE STANDARD (same as every MusePack):
 # - The pack creator decides what is asked. There is no default set.
 # - A setting that appears here is asked, using this prompt, these options,
-#   and this default (the creator's original value).
+#   and this default.
+# - PERSONAL-DATA RULE: a default may only ever be a design value (a count,
+#   a mode, a color) — never the creator's personal data. A question whose
+#   answer is personal to each user (their location, name, accounts, or
+#   content) carries NO default at all: the creator's own value must not
+#   appear anywhere in the pack, and the receiving Muse must ask without
+#   presenting any suggested value for it.
 # - A setting that does NOT appear here is fixed: the receiving Muse builds
 #   it exactly as specified in the linked files and does not ask about it.
 # - Answers replace the matching {{placeholder}} everywhere in the pack.
@@ -103,7 +86,9 @@ questions:
   - key: home_area
     prompt: "What city or area do you drink in most? Place searches for where you tried a beer will be biased to that area."
     type: text
-    default: "San Dimas, Southern California"   # creator's area — a recipient's answer replaces it
+    # NO DEFAULT — personal to each user. The creator's own area must never
+    # ship in this pack, not even as a default (v0.1 shipped one; removed
+    # in v0.2 after a clean-room install surfaced it to another user).
     required: true
     affects: ["space.searchplaces.bias", "rules"]
 
@@ -136,7 +121,8 @@ questions:
 # - The insights method: affinities computed from the user's own verdicts
 
 # ---------------------------------------------------------------------------
-# Install order for the receiving Muse. Full steps live in the build skill.
+# Install order (data for the MusePack Installer skill, which holds the
+# actual procedure).
 # ---------------------------------------------------------------------------
 install_order: [questions, space, seed, companion_skills, rules, schedules]
 
@@ -145,13 +131,14 @@ install_order: [questions, space, seed, companion_skills, rules, schedules]
 # ---------------------------------------------------------------------------
 verify:
   - "A new space exists with a slug that did not exist before the install, and the user's pre-existing spaces are unchanged"
+  - "SURFACE CHECK: the built space's tab bar is exactly these 7, in this order — Home, Journal, Insights, Log (raised center button), For You, Places, Taste — matching files.surface_reference; no tab missing, no extra tab, none renamed"
   - "gettastequestions returns exactly 8 questions, every one unanswered"
   - "listbeers returns no beers and gethome shows a total of 0 — the space starts empty, no creator data came with the pack"
   - "lookupbeer for 'Sierra Nevada Pale Ale' returns a breakdown with brewery, style, ABV, IBU, hops and malts, and at least one source link (this lookup saves nothing)"
   - "If venue_lookup is lookup_and_confirm: searchplaces for a brewery near {{home_area}} returns at least one candidate with a full address; the user, not the app, picks the venue on a real log"
   - "Logging a test beer, then calling getinsights, produces flavor/style affinities from that test log; the test beer is then deleted and listbeers is empty again"
 
-# Test-install rule (also in the build skill): if a space with this pack's
+# Test-install rule (data for the installer skill): if a space with this pack's
 # slug already exists — for example the creator testing their own pack on
 # their own Muse — build the test copy under a different slug and name
 # (beer-tracker-test / 'Beer Tracker (Test)') next to the original, never

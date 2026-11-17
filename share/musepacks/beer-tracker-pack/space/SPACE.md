@@ -23,12 +23,24 @@ rounded corners, chips and big Like / Don't-like controls, tap targets of
 44px or more, simple and glanceable first with details behind a tap. No
 hero section, no wide tables, no desktop layout.
 
-## Layout
+## Surface inventory — FIXED CONTRACT
+
+The tab bar is **exactly these 7, in this order, with these names**:
+**Home · Journal · Insights · Log (raised center button) · For You ·
+Places · Taste**. No tab may be missing, added, merged, or renamed, and
+the Log button sits in the center. `assets/tab-bar-reference.png` in this
+pack shows the exact tab bar; the built space is verified against it
+(see the pack's verify list). Everything below that is not one of these
+7 (for example Where Tried) is a section inside a tab or a sheet — never
+an extra tab.
 
 - **Home.** Totals (beers logged, loved count, average rating), recent
   beers, top loved flavor and style, the suggestion count, and one
   rotating unanswered taste question (the question of the day) until all
   8 are answered.
+- **Journal.** Every logged beer (`listbeers`), newest first, with
+  search and verdict / venue-type filters; tapping a beer opens its full
+  detail (breakdown, verdict, venue) with edit and delete.
 - **Log (center button).** A bottom sheet: type a beer name → lookup
   auto-fills the breakdown (with a manual-entry path when nothing is
   found) → verdict (love / like / ok / dislike), star rating (1–5),
@@ -55,9 +67,9 @@ hero section, no wide tables, no desktop layout.
 - **Places.** Every venue from the logs, aggregated: visit counts, beer
   counts, average rating, venue-type totals, filterable, with the beers
   tried at each place.
-- **Taste profile / questions.** The 8 seeded questions with the user's
-  answers, editable at any time; answers feed insights, the summary, and
-  suggestions.
+- **Taste.** The taste profile tab: the 8 seeded questions with the
+  user's answers, editable at any time, plus the generated taste-profile
+  summary; answers feed insights, the summary, and suggestions.
 
 ## Data model
 
