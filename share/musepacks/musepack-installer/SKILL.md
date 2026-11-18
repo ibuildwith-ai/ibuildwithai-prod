@@ -183,12 +183,24 @@ the installed version in `skill.yaml`:
 - **Same or older:** do nothing. No message, no noise.
 - **Newer:** tell the user the current and new versions and the
   published notes from the version file, and ask whether to update.
-  Only on a yes: download `update_check.zip_url`, confirm the zip's
-  `skill.yaml` really carries the newer version, move the current
-  skill folder aside as a backup (`musepack-installer-backup-<old
-  version>` next to it), install the new folder in its place, and
-  confirm the new version to the user. If anything in that sequence
-  fails, restore the backup and say so.
+  Only on a yes, run the update as one transaction:
+  1. Download `update_check.zip_url` and confirm the zip's
+     `skill.yaml` really carries the newer version — before touching
+     the current install, so a bad download changes nothing.
+  2. Move the current skill folder aside as a *temporary* backup
+     (`musepack-installer-backup-<old version>` next to it).
+  3. Install the new folder in its place, then verify the installed
+     copy: its `skill.yaml` carries the new version and its files are
+     complete.
+  4. **On verified success: delete the backup**, then confirm the new
+     version to the user. The backup is a safety net for the swap,
+     not a keepsake — no backup folders are left behind.
+  5. **On any failure after the backup was made:** delete the partial
+     new install, restore the backup as the live skill folder, clean
+     up anything else the update left behind (the downloaded zip,
+     temporary folders), and tell the user the update failed and they
+     are still on the old version. Never leave both versions in
+     place, and never leave a half-swapped install.
 - **Fetch fails** (offline, site down): stay quiet and try again
   tomorrow. Never report a failed check as an available update.
 
