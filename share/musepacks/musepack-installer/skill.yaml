@@ -1,0 +1,3 @@
+name: musepack-installer
+version: 0.2.0
+description: "Installs MusePacks: when the user points at a pack's musepack.yaml (usually a URL) and asks to install it, this skill fetches the pack as data, runs a quality & safety gate on it (structure, personal-data scan, scope, consistency), interviews the user with the pack's questions, builds the space it describes, seeds it, installs any companion skills, and verifies the result."
