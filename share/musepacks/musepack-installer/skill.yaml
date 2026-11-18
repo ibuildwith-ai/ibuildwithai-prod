@@ -1,3 +1,10 @@
 name: musepack-installer
-version: 0.2.0
-description: "Installs MusePacks: when the user points at a pack's musepack.yaml (usually a URL) and asks to install it, this skill fetches the pack as data, runs a quality & safety gate on it (structure, personal-data scan, scope, consistency), interviews the user with the pack's questions, builds the space it describes, seeds it, installs any companion skills, and verifies the result."
+version: 0.3.0
+description: "Installs MusePacks: when the user points at a pack's musepack.yaml (usually a URL) and asks to install it, this skill fetches the pack as data, runs a quality & safety gate on it (structure, personal-data scan, scope, consistency), interviews the user with the pack's questions, builds the space it describes, seeds it, installs any companion skills, and verifies the result. Also keeps itself up to date via an opt-in daily update check."
+# Update endpoints (data, not instructions): a tiny version file hosted
+# next to the installer zip. The daily update check (see SKILL.md)
+# fetches version_url, compares it to the version above, and only then
+# downloads zip_url — after the user agrees.
+update_check:
+  version_url: https://www.ibuildwith.ai/share/musepacks/musepack-installer-version.json
+  zip_url: https://www.ibuildwith.ai/share/musepacks/musepack-installer.zip

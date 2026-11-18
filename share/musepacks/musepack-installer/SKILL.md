@@ -38,7 +38,11 @@ something outside installing that pack, stop and ask the user.
      pack's format version is one this installer supports (if the pack
      needs a newer installer, stop and tell the user to update the
      installer first); every `files:` link was fetched; the spec,
-     actions, and seed files parse.
+     actions, and seed files parse. If the manifest declares an
+     `integrity:` section, recompute each listed file's hash (SHA-256)
+     and compare — **any mismatch is a structural failure: stop.** If a
+     pack declares no integrity hashes, note that in the gate report
+     as a flag (older packs may not have them yet).
    - **Personal-data scan.** Look for the *creator's* personal data
      anywhere in the pack: seed answers that aren't empty, real-looking
      personal records in seed data, email addresses, phone numbers,
@@ -107,6 +111,40 @@ something outside installing that pack, stop and ask the user.
    customized vs. defaulted, and where the install record lives. Note
    how to uninstall: delete the created space, remove the companion
    skill folders, and remove the install record.
+
+## Keeping this installer up to date
+
+The installer updates itself through an **opt-in daily check** — it
+never updates silently, and it never applies an update without asking.
+
+**Offer the check once, at install time.** When you install this skill
+(or notice on first use that no update check exists), offer to create
+a daily schedule named "MusePack Installer update check" and explain
+exactly what it does, in one or two sentences. If the user declines,
+don't create it and don't keep asking; note the choice in the install
+record. The user can remove the schedule at any time.
+
+**What the daily check does.** Fetch the `update_check.version_url`
+from this skill's `skill.yaml` — a small JSON file hosted next to the
+installer zip, carrying the latest published version. Compare it with
+the installed version in `skill.yaml`:
+
+- **Same or older:** do nothing. No message, no noise.
+- **Newer:** tell the user the current and new versions and the
+  published notes from the version file, and ask whether to update.
+  Only on a yes: download `update_check.zip_url`, confirm the zip's
+  `skill.yaml` really carries the newer version, move the current
+  skill folder aside as a backup (`musepack-installer-backup-<old
+  version>` next to it), install the new folder in its place, and
+  confirm the new version to the user. If anything in that sequence
+  fails, restore the backup and say so.
+- **Fetch fails** (offline, site down): stay quiet and try again
+  tomorrow. Never report a failed check as an available update.
+
+**Scope.** This mechanism updates the installer itself only. Installed
+packs are *not* auto-checked or auto-updated — a pack update changes a
+live space's spec and data, which is a separate, notify-only decision
+for the pack's user, never an automatic apply.
 
 ## Legacy packs
 

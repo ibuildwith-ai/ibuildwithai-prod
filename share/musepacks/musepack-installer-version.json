@@ -1,0 +1,7 @@
+{
+    "notes": "Adds the opt-in daily update check, and gate verification of pack integrity hashes (hash support added in 0.2.1, Quality & Safety gate in 0.2.0).",
+    "published": "2026-11-18",
+    "skill": "musepack-installer",
+    "version": "0.3.0",
+    "zip_url": "https://www.ibuildwith.ai/share/musepacks/musepack-installer.zip"
+}
