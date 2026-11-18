@@ -1,0 +1,10 @@
+# Built-in Muse capabilities this pack needs (format doc §9).
+# Capabilities are internal to Muse — no account, no authentication,
+# nothing for the user to connect. The installer only verifies the
+# receiving Muse has them. (Account connectors live in
+# connectors.yaml; this pack needs none.)
+- id: places
+  requirement: optional
+  used_by: [beer-tracker]
+  purpose: "Venue lookup for the Where Tried field (searchplaces): real places with full address and coordinates, for the user to confirm. Only used when the venue_lookup answer is lookup_and_confirm."
+  if_unavailable: "Venue entry is fully manual: the user types the venue name and details themselves; addresses are never invented."

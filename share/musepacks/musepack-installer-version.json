@@ -1,7 +1,7 @@
 {
-    "notes": "Adds starter side chat creation: packs can declare side chats (title, purpose, focus brief, associated space/skills) and the installer now creates them at install time. Also includes mandatory integrity verification (0.3.1), the opt-in daily update check (0.3.0), and the Quality & Safety gate (0.2.0).",
-    "published": "2026-11-18",
-    "skill": "musepack-installer",
-    "version": "0.4.0",
-    "zip_url": "https://www.ibuildwith.ai/share/musepacks/musepack-installer.zip"
+  "skill": "musepack-installer",
+  "version": "0.7.0",
+  "published": "2026-11-18",
+  "zip_url": "https://www.ibuildwith.ai/share/musepacks/musepack-installer.zip",
+  "notes": "Always-present declaration files: every pack now ships rules.yaml, schedules.yaml, side-chats.yaml, connectors.yaml, and capabilities.yaml (empty lists where a pack needs none), and the gate treats a missing declaration file as a structural failure \u2014 legacy pre-1.7 packs that omit one still install, with the omission read as an empty declaration. Also includes the capabilities/connectors split (0.6.0), mechanical used_by id validation (0.5.1), side chat creation (0.4.0), mandatory integrity verification (0.3.1), the opt-in daily update check (0.3.0), and the Quality & Safety gate (0.2.0)."
 }

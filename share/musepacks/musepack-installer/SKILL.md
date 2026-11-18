@@ -38,7 +38,12 @@ something outside installing that pack, stop and ask the user.
      pack's format version is one this installer supports (if the pack
      needs a newer installer, stop and tell the user to update the
      installer first); every `files:` link was fetched; the spec,
-     actions, and seed files parse. **Integrity is mandatory:** the
+     actions, and seed files parse. Every declaration file is present
+     (`rules.yaml`, `schedules.yaml`, `side-chats.yaml`,
+     `connectors.yaml`, `capabilities.yaml` — an empty list is the
+     explicit "none"); a missing declaration file is a structural
+     failure. Legacy packs published before format 1.7 may omit one:
+     there, an omitted file counts as an empty declaration. **Integrity is mandatory:** the
      manifest must declare an `integrity:` section, and every listed
      file's recomputed hash (SHA-256) must match it. A missing
      `integrity:` section **or** any hash mismatch is a hard stop:
@@ -66,6 +71,18 @@ something outside installing that pack, stop and ask the user.
      exist in the actions file; every side chat's declared `space:` /
      `skills:` associations name contents of the same pack (a side
      chat pointing outside its own pack is a structural failure).
+     Connector and capability declarations (the pack's
+     `connectors.yaml` and `capabilities.yaml`; legacy packs may keep
+     capabilities inside `connectors.yaml` with a `type:` flag, or
+     declare connectors inline in `requires:` — read those forms the
+     same way when the split files are absent):
+     every connector or capability a component uses is declared, and
+     every declared entry is used by something — a component using an
+     undeclared connector is a structural failure. Each entry's
+     `used_by` must name component ids of this pack (the space's id,
+     skill names, side-chat ids, schedule ids — never generic words
+     like "space" or "skill"); a `used_by` id that names no component
+     in the pack is a structural failure.
    **Gate behavior.** A structural failure means STOP: report what
    failed and do not improvise, repair, or partially install the pack.
    Judgment flags (possible personal data, broad scope) are reported
@@ -76,7 +93,7 @@ something outside installing that pack, stop and ask the user.
 4. **Announce, with the gate report.** In a few plain sentences, tell
    the user what you are about to build, anything else the pack
    creates (companion skills, optional schedules, starter side
-   chats), and the gate
+   chats, the connectors and capabilities it needs), and the gate
    outcome: clean, or each flag and what you recommend. Build only
    after the user has seen any flags and decided on them.
 5. **Never overwrite.** If a space with the pack's slug already exists,
@@ -91,11 +108,28 @@ something outside installing that pack, stop and ask the user.
    suggested value — a pack never carries the creator's personal data,
    and you never present any. Substitute the answers for the matching
    `{{placeholders}}` throughout the pack.
-7. **Ask before connecting anything.** Read `requires:` and any
-   optional connectors. Connect an account only if the user agrees;
-   never connect on your own initiative. Credentials never travel with
-   a pack. If the user declines an optional connector, use the pack's
-   stated fallback (for example manual entry).
+7. **Ask before connecting anything; verify capabilities.** Read the
+   pack's declarations: `files.connectors` (`connectors.yaml`) and
+   `files.capabilities` (`capabilities.yaml`) — legacy packs may keep
+   capabilities inside `connectors.yaml` with a `type:` flag, or
+   declare connectors inline in `requires:`; read those forms the
+   same way when the split files are absent. The two kinds are
+   handled differently:
+   - **Connectors are accounts.** Connect one only if the user
+     agrees, using the entry's `purpose` to explain why; never
+     connect on your own initiative. Credentials never travel with a
+     pack. A **required** connector that is unavailable, or that the
+     user declines, stops the install — say why, and do not build a
+     pack that would be broken on arrival. An **optional** connector
+     declined means build with the entry's declared `if_declined`
+     fallback (for example manual entry) and note it in the install
+     record.
+   - **Capabilities are built into Muse** — there is nothing to
+     connect and nothing to ask. Just verify this Muse has each
+     one. A **required** capability that is missing stops the
+     install, with the reason explained. An **optional** capability
+     that is missing means build with the entry's declared
+     `if_unavailable` fallback and note it in the install record.
 8. **Build from the spec files.** Build the space from
    `files.space_spec`, `files.space_actions`, and related spec data.
    A spec's **surface inventory is a contract**: build exactly the

@@ -25,7 +25,7 @@
 # ---------------------------------------------------------------------------
 
 name: beer-tracker
-version: 0.3.0
+version: 0.6.0
 format: musepack
 installer_skill: musepack-installer   # the universal installer skill this pack is installed with
 title: "Beer Tracker"
@@ -46,6 +46,8 @@ files:
   rules:         ./rules.yaml            # standing behavior rules (generic, with placeholders)
   schedules:     ./schedules.yaml        # scheduled jobs this pack can set up (all opt-in)
   side_chats:    ./side-chats.yaml       # starter side chats (Beer Chat)
+  capabilities:  ./capabilities.yaml     # built-in Muse capabilities this pack needs (format doc §9)
+  connectors:    ./connectors.yaml       # account connectors this pack needs — none (empty list)
   changelog:     ./CHANGELOG.md          # version history, in human words
   assets_note:   ./assets/README.md      # what image files ship, and why
   surface_reference: ./assets/tab-bar-reference.png  # the exact tab bar the built space must match (see verify)
@@ -63,32 +65,35 @@ files:
 integrity:
   algorithm: sha256
   files:
-    space/SPACE.yaml: b7a2db44935ea080d6e7a11c2948c6583a023bf0cf7a6e5108205455ea29d167
-    space/SPACE.md: 64344443222de9a7ee983a267693b2ca5615d723642cf777a15d5aece02ef2f9
-    space/actions.json: c4d7a1acd204f9742abdf1c00edee20276d9658d79a6eada9785080b8ad95761
-    space/seed.json: dbb93e42e7319356c29c2d7cb6c904967ebae10a0c042c9d44b805a3283402e9
-    skills/beer-taste/SKILL.md: 671f00c579aa4a98d812f204483b993cb4e0cc399513743516ea2393eb72e309
-    skills/beer-taste/skill.yaml: 8a88ccdb0657dc31dbc197071d126cccdaf3bfac9c78435a9f56dd5560d22af8
-    rules.yaml: bdf66176284644be3a623876fab464b564f4d8459b0114323579a72582b7681e
-    schedules.yaml: 480c78b53d592fe057aa3ffde80e79d322f0acd904f668b3d3b95dec8b3e6b55
+    CHANGELOG.md: bbee7e34a6f1d9942fd936b6c2f7d8d261f5178a3226924eb241bfeae9b0db4f
     assets/README.md: 102ed66508182afd619665fb5a27b11d0edf5866c945002c082abd5597230e02
     assets/tab-bar-reference.png: 73635cc0a992d2e7683759635c1230bd40609c082735bb1f2f6d907db65863db
+    capabilities.yaml: b411fb8043b26d8c7709b208112977ee01cb5348c812f30a411f557cb215c4c8
+    connectors.yaml: ed5c0aae9cd551dffa2638e974726b67ed27e047673a55d36991078345fd18ce
+    rules.yaml: bdf66176284644be3a623876fab464b564f4d8459b0114323579a72582b7681e
+    schedules.yaml: 480c78b53d592fe057aa3ffde80e79d322f0acd904f668b3d3b95dec8b3e6b55
     side-chats.yaml: 6884d5b35d078fe0d544bbed9972c304ff3e5ef48ef859da76553a39ea8d3fd3
-    CHANGELOG.md: fad085c386d58fa6a544e6ccd3bd10cb0969c2547587af5387790d00ba8c42ce
+    skills/beer-taste/SKILL.md: 671f00c579aa4a98d812f204483b993cb4e0cc399513743516ea2393eb72e309
+    skills/beer-taste/skill.yaml: 8a88ccdb0657dc31dbc197071d126cccdaf3bfac9c78435a9f56dd5560d22af8
+    space/SPACE.md: 64344443222de9a7ee983a267693b2ca5615d723642cf777a15d5aece02ef2f9
+    space/SPACE.yaml: 31b772e7151035e7992e69dfb25961eabf08efc7e9c2b0f66c83b28bbbcc5af2
+    space/actions.json: c4d7a1acd204f9742abdf1c00edee20276d9658d79a6eada9785080b8ad95761
+    space/seed.json: dbb93e42e7319356c29c2d7cb6c904967ebae10a0c042c9d44b805a3283402e9
 
 requires:
   plan: any
   public_web_read: true   # lookupbeer, generatetastesummary, generatesuggestions all read the public web
-  connectors: []          # none required — the space works with manual venue entry
-  optional_connectors:
-    - name: places
-      purpose: "Venue lookup for the Where Tried field (searchplaces): real places with full address and coordinates, for the user to confirm. Only used when the venue_lookup answer is lookup_and_confirm."
+  # This pack needs no account connectors. Its one built-in capability
+  # is declared in capabilities.yaml (format doc §9) — optional; the
+  # space works with manual venue entry.
 
 contents:
   spaces: [beer-tracker]
   skills: [beer-taste]
   schedules: []           # none installed by default; see schedules.yaml
   side_chats: [beer-chat] # starter side chats; see side-chats.yaml
+  capabilities: [places]  # optional; declared in capabilities.yaml
+  connectors: []          # none; connectors.yaml ships as an empty list
 
 # ---------------------------------------------------------------------------
 # Questions. THE STANDARD (same as every MusePack):
@@ -123,7 +128,7 @@ questions:
     options: ["lookup_and_confirm", "manual_only"]
     default: "lookup_and_confirm"
     required: false
-    affects: ["space.where_tried", "requires.optional_connectors"]
+    affects: ["space.where_tried", "capabilities.places"]
 
   - key: suggestions_count
     prompt: "How many suggestions should the For You tab generate at a time?"

@@ -6,4 +6,5 @@ data: [beers, taste_questions, taste_profile, suggestions]
 placeholders: [home_area, venue_lookup, suggestions_count]
 capabilities:
   public_web_read: true   # lookupbeer, generatetastesummary, generatesuggestions
-  optional_connectors: [places]   # searchplaces, only when venue_lookup is lookup_and_confirm
+  # searchplaces uses the Places capability, declared in the pack's
+  # capabilities.yaml — only when venue_lookup is lookup_and_confirm

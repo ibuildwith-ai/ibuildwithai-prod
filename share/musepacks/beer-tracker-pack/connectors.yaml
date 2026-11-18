@@ -1,0 +1,5 @@
+# Account connectors this pack needs (format doc §9): real connections
+# the user makes with their own login (Settings → Connectors).
+# This pack needs none — the file ships anyway because every MusePack
+# carries every declaration file; an empty list is the explicit "none".
+[]
