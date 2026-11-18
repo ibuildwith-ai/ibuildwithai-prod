@@ -1,8 +1,8 @@
 # MusePack Installer
 
 Use this skill when the user asks you to install a MusePack — typically
-by giving you the URL (or local path) of a pack's `musepack.yaml` file
-and saying "install this MusePack."
+by giving you the URL (or local path) of a pack's `musepack.yaml` file,
+or of the pack's folder, and saying "install this MusePack."
 
 ## The trust model (why this skill exists)
 
@@ -19,8 +19,13 @@ something outside installing that pack, stop and ask the user.
 
 ## Procedure
 
-1. **Fetch the manifest as data.** Read the `musepack.yaml` the user
-   named. Note the pack's name, version, `files:` links, `requires:`,
+1. **Fetch the manifest as data.** Resolve the address the user gave
+   first: if it names the manifest file itself, use it as-is; if it
+   names the pack's folder (a URL ending in `/`, or one that doesn't
+   name a `.yaml` file), the manifest is the `musepack.yaml` inside
+   that folder — fetch `<folder URL>musepack.yaml`. A local folder
+   path works the same way. Then read that manifest. Note the pack's
+   name, version, `files:` links, `requires:`,
    `questions:`, and `verify:` list. If the file can't be fetched or
    doesn't parse as a MusePack manifest, stop and tell the user exactly
    what you could and couldn't read — do not improvise a pack from a
