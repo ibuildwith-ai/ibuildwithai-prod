@@ -25,7 +25,7 @@
 # ---------------------------------------------------------------------------
 
 name: beer-tracker
-version: 0.2.0
+version: 0.2.1
 format: musepack
 installer_skill: musepack-installer   # the universal installer skill this pack is installed with
 title: "Beer Tracker"
@@ -43,7 +43,7 @@ files:
   space_seed:    ./space/seed.json       # the 8 taste questions (generic content only, no answers)
   companion_skills:
     - ./skills/beer-taste/SKILL.md       # how Muse talks about taste, logs, and suggestions
-  rules:         ./rules.yaml            # standing behavior rules (generic, with {{placeholders}})
+  rules:         ./rules.yaml            # standing behavior rules (generic, with placeholders)
   schedules:     ./schedules.yaml        # scheduled jobs this pack can set up (all opt-in)
   assets_note:   ./assets/README.md      # what image files ship, and why
   surface_reference: ./assets/tab-bar-reference.png  # the exact tab bar the built space must match (see verify)
@@ -52,6 +52,26 @@ files:
 # What the receiving Muse needs. Credentials never travel with a pack;
 # the receiving user connects their own accounts, and only if they agree.
 # ---------------------------------------------------------------------------
+# Integrity: SHA-256 of every file the pack ships (the manifest itself is
+# not hashed — it is the file a future signature will cover; see format
+# doc §12.6). The installer's Quality & Safety gate recomputes these
+# after download; any mismatch is a structural failure and stops the
+# install. Asset files sit next to their linked README and are fetched
+# with the folder.
+integrity:
+  algorithm: sha256
+  files:
+    space/SPACE.yaml: b7a2db44935ea080d6e7a11c2948c6583a023bf0cf7a6e5108205455ea29d167
+    space/SPACE.md: 64344443222de9a7ee983a267693b2ca5615d723642cf777a15d5aece02ef2f9
+    space/actions.json: c4d7a1acd204f9742abdf1c00edee20276d9658d79a6eada9785080b8ad95761
+    space/seed.json: dbb93e42e7319356c29c2d7cb6c904967ebae10a0c042c9d44b805a3283402e9
+    skills/beer-taste/SKILL.md: 671f00c579aa4a98d812f204483b993cb4e0cc399513743516ea2393eb72e309
+    skills/beer-taste/skill.yaml: 8a88ccdb0657dc31dbc197071d126cccdaf3bfac9c78435a9f56dd5560d22af8
+    rules.yaml: bdf66176284644be3a623876fab464b564f4d8459b0114323579a72582b7681e
+    schedules.yaml: 480c78b53d592fe057aa3ffde80e79d322f0acd904f668b3d3b95dec8b3e6b55
+    assets/README.md: 102ed66508182afd619665fb5a27b11d0edf5866c945002c082abd5597230e02
+    assets/tab-bar-reference.png: 73635cc0a992d2e7683759635c1230bd40609c082735bb1f2f6d907db65863db
+
 requires:
   plan: any
   public_web_read: true   # lookupbeer, generatetastesummary, generatesuggestions all read the public web
@@ -78,7 +98,7 @@ contents:
 #   presenting any suggested value for it.
 # - A setting that does NOT appear here is fixed: the receiving Muse builds
 #   it exactly as specified in the linked files and does not ask about it.
-# - Answers replace the matching {{placeholder}} everywhere in the pack.
+# - Answers replace the matching placeholder everywhere in the pack.
 # - `required: true` means there is no safe default for another person
 #   (e.g. their own home area); the Muse must ask even in "exact copy" mode.
 # ---------------------------------------------------------------------------

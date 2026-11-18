@@ -1,6 +1,6 @@
 # Standing rules for the Beer Tracker pack.
 # Generic on purpose: the creator's personal values never travel with a
-# pack. {{placeholders}} are filled from the musepack.yaml questions.
+# pack. Placeholders are filled from the musepack.yaml questions.
 rules:
   - "Every looked-up beer fact (ABV, IBU, hops, malts, flavor profile) must carry a source; never invent a breakdown"
   - "Never invent a venue address: a place is either a lookup result the user confirmed, or manual entry"
