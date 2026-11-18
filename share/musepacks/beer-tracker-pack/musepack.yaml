@@ -25,7 +25,7 @@
 # ---------------------------------------------------------------------------
 
 name: beer-tracker
-version: 0.2.1
+version: 0.3.0
 format: musepack
 installer_skill: musepack-installer   # the universal installer skill this pack is installed with
 title: "Beer Tracker"
@@ -45,6 +45,8 @@ files:
     - ./skills/beer-taste/SKILL.md       # how Muse talks about taste, logs, and suggestions
   rules:         ./rules.yaml            # standing behavior rules (generic, with placeholders)
   schedules:     ./schedules.yaml        # scheduled jobs this pack can set up (all opt-in)
+  side_chats:    ./side-chats.yaml       # starter side chats (Beer Chat)
+  changelog:     ./CHANGELOG.md          # version history, in human words
   assets_note:   ./assets/README.md      # what image files ship, and why
   surface_reference: ./assets/tab-bar-reference.png  # the exact tab bar the built space must match (see verify)
 
@@ -71,6 +73,8 @@ integrity:
     schedules.yaml: 480c78b53d592fe057aa3ffde80e79d322f0acd904f668b3d3b95dec8b3e6b55
     assets/README.md: 102ed66508182afd619665fb5a27b11d0edf5866c945002c082abd5597230e02
     assets/tab-bar-reference.png: 73635cc0a992d2e7683759635c1230bd40609c082735bb1f2f6d907db65863db
+    side-chats.yaml: 6884d5b35d078fe0d544bbed9972c304ff3e5ef48ef859da76553a39ea8d3fd3
+    CHANGELOG.md: fad085c386d58fa6a544e6ccd3bd10cb0969c2547587af5387790d00ba8c42ce
 
 requires:
   plan: any
@@ -84,6 +88,7 @@ contents:
   spaces: [beer-tracker]
   skills: [beer-taste]
   schedules: []           # none installed by default; see schedules.yaml
+  side_chats: [beer-chat] # starter side chats; see side-chats.yaml
 
 # ---------------------------------------------------------------------------
 # Questions. THE STANDARD (same as every MusePack):
@@ -157,6 +162,7 @@ verify:
   - "lookupbeer for 'Sierra Nevada Pale Ale' returns a breakdown with brewery, style, ABV, IBU, hops and malts, and at least one source link (this lookup saves nothing)"
   - "If venue_lookup is lookup_and_confirm: searchplaces for a brewery near {{home_area}} returns at least one candidate with a full address; the user, not the app, picks the venue on a real log"
   - "Logging a test beer, then calling getinsights, produces flavor/style affinities from that test log; the test beer is then deleted and listbeers is empty again"
+  - "A side chat titled 'Beer Chat' exists, opened with the focus brief from files.side_chats (placeholders substituted), associated with this pack's space and the beer-taste skill"
 
 # Test-install rule (data for the installer skill): if a space with this pack's
 # slug already exists — for example the creator testing their own pack on

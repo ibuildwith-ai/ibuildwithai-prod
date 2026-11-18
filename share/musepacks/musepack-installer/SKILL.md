@@ -63,7 +63,9 @@ something outside installing that pack, stop and ask the user.
    - **Consistency.** A `verify:` list is present and runnable; a
      space spec carries a surface inventory; every `{{placeholder}}`
      in the pack is covered by a question; actions named in the spec
-     exist in the actions file.
+     exist in the actions file; every side chat's declared `space:` /
+     `skills:` associations name contents of the same pack (a side
+     chat pointing outside its own pack is a structural failure).
    **Gate behavior.** A structural failure means STOP: report what
    failed and do not improvise, repair, or partially install the pack.
    Judgment flags (possible personal data, broad scope) are reported
@@ -73,7 +75,8 @@ something outside installing that pack, stop and ask the user.
    content. Record the gate results in the install record.
 4. **Announce, with the gate report.** In a few plain sentences, tell
    the user what you are about to build, anything else the pack
-   creates (companion skills, optional schedules), and the gate
+   creates (companion skills, optional schedules, starter side
+   chats), and the gate
    outcome: clean, or each flag and what you recommend. Build only
    after the user has seen any flags and decided on them.
 5. **Never overwrite.** If a space with the pack's slug already exists,
@@ -103,7 +106,13 @@ something outside installing that pack, stop and ask the user.
    `~/workspace/custom-skills/<skill-name>/` (placement only). Apply
    `files.rules` with the answers substituted. Create a schedule only
    for entries the manifest/schedules file marks opt-in **and** the
-   user accepts when asked.
+   user accepts when asked. Create each starter side chat declared in
+   `files.side_chats`: a fresh side chat with the entry's title, then
+   send its `focus` brief (answers substituted) as the founding
+   message, so the chat opens already focused on its topic and its
+   associated space and skills. On a test install, title the copy
+   "<Title> (Test)" like the space. Record the created chats in the
+   install record.
 9. **Verify, out loud.** Run every check in `verify:` against the live
    result — including any surface check against the pack's reference
    screenshots — and report each one as passed or failed, with what you
@@ -112,8 +121,8 @@ something outside installing that pack, stop and ask the user.
    quietly pass it.
 10. **Report and record.** Summarize what was built, which answers were
    customized vs. defaulted, and where the install record lives. Note
-   how to uninstall: delete the created space, remove the companion
-   skill folders, and remove the install record.
+   how to uninstall: delete the created space and side chats, remove
+   the companion skill folders, and remove the install record.
 
 ## Keeping this installer up to date
 

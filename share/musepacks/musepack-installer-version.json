@@ -1,7 +1,7 @@
 {
-    "notes": "Integrity is now mandatory: the install stops with a warning if a pack's hashes are missing or any file hash mismatches (no override). Also includes the opt-in daily update check (0.3.0) and the Quality & Safety gate (0.2.0).",
+    "notes": "Adds starter side chat creation: packs can declare side chats (title, purpose, focus brief, associated space/skills) and the installer now creates them at install time. Also includes mandatory integrity verification (0.3.1), the opt-in daily update check (0.3.0), and the Quality & Safety gate (0.2.0).",
     "published": "2026-11-18",
     "skill": "musepack-installer",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "zip_url": "https://www.ibuildwith.ai/share/musepacks/musepack-installer.zip"
 }
