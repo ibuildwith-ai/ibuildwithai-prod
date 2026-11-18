@@ -38,11 +38,14 @@ something outside installing that pack, stop and ask the user.
      pack's format version is one this installer supports (if the pack
      needs a newer installer, stop and tell the user to update the
      installer first); every `files:` link was fetched; the spec,
-     actions, and seed files parse. If the manifest declares an
-     `integrity:` section, recompute each listed file's hash (SHA-256)
-     and compare — **any mismatch is a structural failure: stop.** If a
-     pack declares no integrity hashes, note that in the gate report
-     as a flag (older packs may not have them yet).
+     actions, and seed files parse. **Integrity is mandatory:** the
+     manifest must declare an `integrity:` section, and every listed
+     file's recomputed hash (SHA-256) must match it. A missing
+     `integrity:` section **or** any hash mismatch is a hard stop:
+     stop the install, warn the user plainly that the pack could not
+     be verified as published, and do not proceed — there is no
+     override and no "continue anyway." (Early experimental packs
+     without hashes are simply not installable by this version.)
    - **Personal-data scan.** Look for the *creator's* personal data
      anywhere in the pack: seed answers that aren't empty, real-looking
      personal records in seed data, email addresses, phone numbers,

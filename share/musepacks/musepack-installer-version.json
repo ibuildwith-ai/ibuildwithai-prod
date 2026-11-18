@@ -1,7 +1,7 @@
 {
-    "notes": "Adds the opt-in daily update check, and gate verification of pack integrity hashes (hash support added in 0.2.1, Quality & Safety gate in 0.2.0).",
+    "notes": "Integrity is now mandatory: the install stops with a warning if a pack's hashes are missing or any file hash mismatches (no override). Also includes the opt-in daily update check (0.3.0) and the Quality & Safety gate (0.2.0).",
     "published": "2026-11-18",
     "skill": "musepack-installer",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "zip_url": "https://www.ibuildwith.ai/share/musepacks/musepack-installer.zip"
 }
