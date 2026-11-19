@@ -1,7 +1,0 @@
-{
-  "skill": "musepack-installer",
-  "version": "0.8.1",
-  "published": "2026-11-18",
-  "zip_url": "https://www.ibuildwith.ai/share/musepacks/musepack-installer.zip",
-  "notes": "Transactional self-update: the old version's backup is now temporary \u2014 once the new version is verified installed, the backup is deleted (no backup folders left behind); if anything in the update fails, the partial install is removed, the previous version is restored, and leftovers are cleaned up. Also includes folder-URL installs (0.8.0), always-present declaration files (0.7.0), the capabilities/connectors split (0.6.0), mechanical used_by id validation (0.5.1), side chat creation (0.4.0), mandatory integrity verification (0.3.1), the opt-in daily update check (0.3.0), and the Quality & Safety gate (0.2.0)."
-}

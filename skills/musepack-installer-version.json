@@ -1,0 +1,7 @@
+{
+  "skill": "musepack-installer",
+  "version": "0.9.0",
+  "published": "2026-11-19",
+  "zip_url": "https://musepacks.ai/skills/musepack-installer.zip",
+  "notes": "Hosting move: the MusePack skills now live at musepacks.ai/skills/ (packs live at musepacks.ai/musepacks/). This release repoints the installer's update check to the new home \u2014 same procedure, new address. Publish this zip and its version file at BOTH the new location and the old ibuildwith.ai/share/musepacks/ location during the transition, so installs still checking the old address receive this update once and follow it to the new home. Also includes folder-URL installs (0.8.0), transactional self-update with no leftover backups (0.8.1), always-present declaration files (0.7.0), the capabilities/connectors split (0.6.0), mechanical used_by id validation (0.5.1), side chat creation (0.4.0), mandatory integrity verification (0.3.1), the opt-in daily update check (0.3.0), and the Quality & Safety gate (0.2.0)."
+}
