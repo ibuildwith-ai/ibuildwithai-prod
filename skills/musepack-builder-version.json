@@ -1,7 +1,7 @@
 {
   "skill": "musepack-builder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "published": "2026-11-19",
-  "zip_url": "https://musepacks.ai/skills/musepack-builder.zip",
-  "notes": "First release. Turns one of the user's spaces into a shareable MusePack: inspects the live space (surface inventory and actions from the source, never from memory), interviews the creator on fidelity (optional reference screenshots in assets/), proposes the fixed-vs-asked split, runs a blocking surface-and-ask privacy gate over every candidate personal item (default exclude), settles companion skills, side chats, schedules, connectors and capabilities, then generates a complete data-only pack in the current format \u2014 all five declaration files always present, integrity hashes computed last \u2014 validates it against the creation gate, and reports the guarded install prompt plus a catalog entry."
+  "zip_url": "https://www.ibuildwith.ai/skills/musepack-builder.zip",
+  "notes": "Interim hosting: update check points at ibuildwith.ai/skills/ until musepacks.ai is live (a bridge release will repoint it at launch). Also adopts the pack-folder naming change: pack folders are named just <pack-name> (no -pack suffix). Otherwise identical to 0.1.0: inspects the live space, interviews the creator on fidelity and the fixed-vs-asked split, runs the blocking surface-and-ask privacy gate (default exclude), generates a complete data-only pack with integrity hashes, validates it against the creation gate, and reports the guarded install prompt plus a catalog entry."
 }
