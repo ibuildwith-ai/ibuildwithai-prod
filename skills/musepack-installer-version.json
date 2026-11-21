@@ -1,7 +1,7 @@
 {
   "skill": "musepack-installer",
-  "version": "0.9.1",
-  "published": "2026-11-19",
+  "version": "0.10.0",
+  "published": "2026-11-20",
   "zip_url": "https://www.ibuildwith.ai/skills/musepack-installer.zip",
-  "notes": "Interim hosting: until musepacks.ai is live, the skills are served from ibuildwith.ai/skills/ (mirroring the future musepacks.ai layout), so this release points the update check there. Same procedure as 0.9.0 \u2014 endpoints only. At musepacks.ai launch, a bridge release published here will repoint the check to musepacks.ai/skills/. Also includes transactional self-update (0.8.1), folder-URL installs (0.8.0), always-present declaration files (0.7.0), the capabilities/connectors split (0.6.0), used_by validation (0.5.1), side chat creation (0.4.0), mandatory integrity verification (0.3.1), the opt-in daily update check (0.3.0), and the Quality & Safety gate (0.2.0)."
+  "notes": "Interaction discipline (from field use: the installer was too verbose): it now narrates progress as it works in short lines \u2014 no long silences, no information dumps \u2014 asks every question that needs a decision ONE at a time, and keeps reports to the headline with full detail in the install record. The interview opens with a single choice: use the pack's defaults (then only the required questions are asked) or customize (each question asked singly). Also includes the interim ibuildwith.ai/skills endpoints (0.9.1), the hosting bridge (0.9.0), transactional self-update (0.8.1), folder-URL installs (0.8.0), and the Quality & Safety gate with mandatory integrity verification."
 }

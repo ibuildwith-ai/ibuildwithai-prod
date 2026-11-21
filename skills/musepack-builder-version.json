@@ -1,7 +1,7 @@
 {
   "skill": "musepack-builder",
-  "version": "0.1.1",
-  "published": "2026-11-19",
+  "version": "0.2.0",
+  "published": "2026-11-20",
   "zip_url": "https://www.ibuildwith.ai/skills/musepack-builder.zip",
-  "notes": "Interim hosting: update check points at ibuildwith.ai/skills/ until musepacks.ai is live (a bridge release will repoint it at launch). Also adopts the pack-folder naming change: pack folders are named just <pack-name> (no -pack suffix). Otherwise identical to 0.1.0: inspects the live space, interviews the creator on fidelity and the fixed-vs-asked split, runs the blocking surface-and-ask privacy gate (default exclude), generates a complete data-only pack with integrity hashes, validates it against the creation gate, and reports the guarded install prompt plus a catalog entry."
+  "notes": "Interaction discipline, matching the installer (from field use: the builder was too verbose): it now narrates progress as it works in short lines, asks every decision ONE at a time \u2014 the fidelity choice, approval of each proposed question, each privacy item, each declaration topic \u2014 presents findings as information separately from decisions, and keeps reports to the headline with full detail in the creation record. Also includes the pack-folder naming change and interim ibuildwith.ai/skills endpoints (0.1.1)."
 }
